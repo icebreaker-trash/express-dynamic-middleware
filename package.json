@@ -1,0 +1,32 @@
+{
+  "name": "express-dynamic-middleware",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sonofmagic/express-dynamic-middleware.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sonofmagic/express-dynamic-middleware/issues"
+  },
+  "homepage": "https://github.com/sonofmagic/express-dynamic-middleware#readme",
+  "dependencies": {
+    "element-ui": "^2.13.0",
+    "express": "^4.17.1",
+    "nuxt": "^2.10.2"
+  },
+  "devDependencies": {
+    "@nuxtjs/eslint-config": "^2.0.0",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.7.2",
+    "fibers": "^4.0.2",
+    "sass": "^1.23.7",
+    "sass-loader": "^8.0.0"
+  }
+}
