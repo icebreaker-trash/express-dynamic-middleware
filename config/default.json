@@ -1,0 +1,6 @@
+{
+  "dbConfig": {
+    "connectionString": "mongodb://localhost:27017",
+    "defaultDatabase": "dynamic"
+  }
+}

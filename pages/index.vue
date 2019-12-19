@@ -38,12 +38,13 @@ export default {
   },
   mounted () {
     this.getList()
+    this.getRuntimeList()
   },
   methods: {
     async getList () {
       try {
         this.loading = true
-        const { data } = await getMiddlewareRuntimeList(this.listQuery)
+        const { data } = await getMiddlewareList(this.listQuery)
         this.items = data
         this.total = data.length
       } catch (error) {
@@ -52,15 +53,17 @@ export default {
         this.loading = false
       }
     },
-    handleAdd () {
-
+    async getRuntimeList () {
+      try {
+        const { data } = await getMiddlewareRuntimeList()
+        return data
+      } catch (error) {
+        console.error(error)
+      }
     },
-    handleEdit () {
-
-    },
-    handleDelete () {
-
-    }
+    handleAdd () {},
+    handleEdit () {},
+    handleDelete () {}
   }
 }
 </script>
