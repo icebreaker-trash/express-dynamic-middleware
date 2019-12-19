@@ -8,7 +8,12 @@ const isProd = (process.env.NODE_ENV === 'production')
 const port = process.env.PORT || 20086
 config.dev = !isProd
 const nuxt = new Nuxt(config)
-app.use(require('./routers'))
+require('./routers').forEach(router => app.use(router))
+app.get('/api', (req, res, next) => {
+  res.json({
+    shit: 'boom'
+  })
+})
 app.use(nuxt.render)
 if (config.dev) {
   new Builder(nuxt).build()

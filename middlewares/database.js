@@ -18,7 +18,7 @@ function db () {
       }
       const db = client.db(defaultDatabase)
       req.db = db
-      await next()
+      next()
     }
   } catch (error) {
     console.log(error)
