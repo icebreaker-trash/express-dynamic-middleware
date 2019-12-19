@@ -15,6 +15,9 @@ app.get('/api', (req, res, next) => {
   })
 })
 app.use(nuxt.render)
+app.use((error, req, res, next) => {
+  console.log(error)
+})
 if (config.dev) {
   new Builder(nuxt).build()
     .then(listen)
