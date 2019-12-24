@@ -13,9 +13,12 @@ export function postMiddleware (data) {
 }
 
 export function putMiddleware (data) {
-  return request.put('/middleware', data)
+  const {
+    id
+  } = data
+  return request.put(`/middleware/${id}`, data)
 }
 
-export function deleteMiddleware (params) {
-  return request.delete('/middleware', params)
+export function deleteMiddleware (id) {
+  return request.delete(`/middleware/${id}`)
 }
