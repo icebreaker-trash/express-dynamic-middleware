@@ -2,11 +2,12 @@
 const Router = require('express').Router
 const router = Router()
 const uuid = require('uuid/v1')
-const app = require('../app')
+// const app = require('../app')
 // const prefix = 'api/middleware'
 const db = require('../middlewares/database')
+const dynamicRouter = require('./dynamic')
 router // router
-  // .use(db())
+// .use(db())
   .route('/api/middleware') // bound dispatch
   .get(db(), async (req, res, next) => {
     const collection = req.db.collection('middleware')
@@ -19,14 +20,18 @@ router // router
     const postData = req.body
     const {
       path,
-      code
+      code,
+      method = 'all'
     } = postData
     const collection = req.db.collection('middleware')
     const fn = new Function('req', 'res', 'next', code)
-    path ? app.use(path, fn) : app.use(fn)
+    // app直接使用受限于顺序
+    // path ? app.use(path, fn) : app.use(fn)
+    path ? dynamicRouter.route(path)[method](fn) : dynamicRouter.use(fn)
+    const id = uuid().toString().replace('-', '')
     await collection.insertOne({
-      id: uuid(),
-      code
+      id,
+      ...postData
     })
     res.status(200).send('ok')
   })

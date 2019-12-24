@@ -2,13 +2,18 @@
 const Router = require('express').Router
 const router = Router()
 const app = require('../app')
+const dynamicRouter = require('./dynamic')
 router
-  .route('/api/execute').get((req, res, next) => {
+  .route('/api/execute')
+  .post((req, res, next) => {
     const {
       code
     } = req.body
-    ;(new Function('app', code))(app)
-    res.status(200).send('ok')
+
+    const output = (new Function('app', 'router', code))(app, dynamicRouter)
+    res.status(200).send({
+      output
+    })
   })
 
 module.exports = router

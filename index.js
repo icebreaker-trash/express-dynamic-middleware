@@ -16,10 +16,12 @@ app.get('/api', (req, res, next) => {
     shit: 'boom'
   })
 })
-app.use(nuxt.render)
 app.use((error, req, res, next) => { // <anonymous>
   console.error(error)
 })
+// 运行时直接app.use会导致中间件在render之下不起作用
+app.use(nuxt.render)
+
 if (config.dev) {
   new Builder(nuxt).build()
     .then(listen)

@@ -26,16 +26,35 @@
       </el-table-column>
     </el-table>
     <el-dialog :visible.sync="codeDialogVisible">
-      <el-input v-model="formData.code" type="textarea" :autosize="{ minRows: 2, maxRows: 4}" placeholder="请输入内容" />
-      <el-button @click="confirm">
-        提交
-      </el-button>
+      <el-form :model="formData" label-width="100px">
+        <el-form-item label="path">
+          <el-input v-model="formData.path" />
+        </el-form-item>
+        <el-form-item label="method">
+          <el-select v-model="formData.method" placeholder="请选择">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+              :disabled="item.disabled"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="code">
+          <el-input v-model="formData.code" type="textarea" :autosize="{ minRows: 10}" placeholder="请输入内容" />
+        </el-form-item>
+
+        <el-button @click="confirm">
+          提交
+        </el-button>
+      </el-form>
     </el-dialog>
   </section>
 </template>
 
 <script>
-import CodeMirror from 'codemirror'
+
 import {
   getMiddlewareList,
   getMiddlewareRuntimeList,
@@ -45,7 +64,9 @@ import {
 } from '@/api/client'
 const _formData = {
   id: null,
-  code: ''
+  code: '',
+  path: '',
+  method: 'all'
 }
 function shadowClone (t) {
   return { ...t }
@@ -60,7 +81,23 @@ export default {
       total: 0,
       loading: false,
       codeDialogVisible: false,
-      formData: shadowClone(_formData)
+      formData: shadowClone(_formData),
+      options: [{
+        value: 'all',
+        label: 'all'
+      }, {
+        value: 'get',
+        label: 'get'
+      }, {
+        value: 'post',
+        label: 'post'
+      }, {
+        value: 'put',
+        label: 'put'
+      }, {
+        value: 'delete',
+        label: 'delete'
+      }]
     }
   },
   mounted () {
