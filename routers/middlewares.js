@@ -18,14 +18,16 @@ router // router
   }).post(db(), async (req, res, next) => {
     const postData = req.body
     const {
+      path,
       code
     } = postData
     const collection = req.db.collection('middleware')
+    const fn = new Function('req', 'res', 'next', code)
+    path ? app.use(path, fn) : app.use(fn)
     await collection.insertOne({
       id: uuid(),
       code
-    });
-    (new Function('app', code))(app)
+    })
     res.status(200).send('ok')
   })
 router.route('/api/middleware/:id').put(db(), async (req, res, next) => {
@@ -46,7 +48,9 @@ router.route('/api/middleware/:id').put(db(), async (req, res, next) => {
   })
   res.status(200).send('ok')
 }).delete(db(), async (req, res, next) => {
-  const { id } = req.params
+  const {
+    id
+  } = req.params
   const collection = req.db.collection('middleware')
   await collection.deleteOne({
     id

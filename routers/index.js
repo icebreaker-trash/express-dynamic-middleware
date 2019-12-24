@@ -1,1 +1,1 @@
-module.exports = [require('./middlewares'), require('./runtime')]
+module.exports = [require('./middlewares'), require('./runtime'), require('./execute')]

@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import CodeMirror from 'codemirror'
 import {
   getMiddlewareList,
   getMiddlewareRuntimeList,
